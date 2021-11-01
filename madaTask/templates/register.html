@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{%block title%}Registeration{%endblock%} 
+
+{%block content%} 
+
+<h1>Add customer</h1>
+
+<form action ="{% url 'addcustomer' %}" method="post">
+
+    {%csrf_token%}
+    {{form}}
+
+<input type = "submit" value="Submit">
+</form>
+
+{% endblock %}

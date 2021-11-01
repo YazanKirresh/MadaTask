@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{%block title%}Edit customer page {%endblock%} 
+
+
+
+{%block content%} 
+
+<center>
+    <h1>Edit and update customer records</h1>
+    <form method ="POST" action="/updatecustomer/{{Customer.id}}">
+        {% csrf_token %}
+    <table border="1">
+        <tr>
+            <th>Customer ID</th>
+            <td><input type ="text" name ="id" value="{{Customer.id}}" readonly></td>
+        </tr>
+        <tr>
+            <th>Customer First Name</th>
+            <td><input type ="text" name ="FirstName" value="{{Customer.customerFirstName}}"></td>
+        </tr>
+        <tr>
+            <th>Customer Last Name</th>
+            <td><input type ="text" name ="LastName" value="{{Customer.customerLastName}}"></td>
+        </tr>
+        <tr>
+            <th>Customer Service Level</th>
+            <td><input type ="text" name ="ServiceLevel" value="{{Customer.customerServiceLevel}}"></td>
+        </tr>
+    </table>
+    <input type ="submit" value = "update"/>
+    {% if messages %}
+        {% for updaterecord in messages %}
+            <h3 style = "color: green">{{updaterecord}}</h3>
+        {% endfor %}
+    {% endif %}
+    </form>
+</center>
+
+
+{% endblock %}

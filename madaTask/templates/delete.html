@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{%block title%}Delete Customer page {%endblock%} 
+
+
+
+{%block content%} 
+
+<h1>This is our delete page</h1>
+
+<p>Are you sure you want to delete "{{item}}"?</p>
+
+<form actions="{% url 'deletecustomer' item.id %}" method ="POST">
+    {% csrf_token %}
+    <a href = "{% url 'customerslist'%}"> Cancel </a>
+    <input type="submit" name="Confirm">
+</form>>
+
+{% endblock %}
