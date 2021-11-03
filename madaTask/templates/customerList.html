@@ -18,14 +18,14 @@
             <th>Service Level</th>
         </tr>
 
-        {% for dispCustomers in Customer  %}
+        {% for disp_customer in Customer  %}
         <tr>
-            <td>{{dispCustomers.id}}</td>
-            <td>{{dispCustomers.customerFirstName}}</td>
-            <td>{{dispCustomers.customerLastName}}</td>
-            <td>{{dispCustomers.customerServicelevel}}</td>
-            <td><a href ="/edit/{{dispCustomers.id}}">Edit</td>
-            <td><a href ="/deletecustomer/{{dispCustomers.id}}">Delete</td>
+            <td>{{disp_customer.id}}</td>
+            <td>{{disp_customer.customer_first_name}}</td>
+            <td>{{disp_customer.customer_last_name}}</td>
+            <td>{{disp_customer.customer_service_level}}</td>
+            <td><a href ="/edit/{{disp_customer.id}}">Edit</td>
+            <td><a href ="/deletecustomer/{{disp_customer.id}}">Delete</td>
 
         </tr>
         {% endfor %}

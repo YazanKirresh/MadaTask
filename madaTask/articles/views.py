@@ -15,8 +15,8 @@ from django.contrib.auth import login,logout
 def logout_view(request):
     if request.method == "POST":
         logout(request)
-        return redirect("login.html")
-    return render(request,"customerList.html")
+        return redirect("login_view")
+    return render(request,"customerlist.html")
 
 
 def login_view(request):
@@ -43,9 +43,9 @@ def signup_view(request):
 
 def display_customers(request):
     results = Customer.objects.all()
-    myFilter = customerFilter(request.GET, queryset = results)
-    results = myFilter.qs
-    return render(request,"customerList.html", {"Customer":results, 'myFilter': myFilter})
+    my_filter = customerFilter(request.GET, queryset = results)
+    results = my_filter.qs
+    return render(request,"customerlist.html", {"Customer":results, 'my_filter': my_filter})
 
 
 def home_view(request):
@@ -76,8 +76,7 @@ def add_customer(request):
         form = customerRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-
-    return redirect('home')
+    return redirect('display_customers')
 
 
 def model_form_view(request):
@@ -88,27 +87,27 @@ def model_form_view(request):
 
 
 def edit_customer(request,pk):
-    dispCustomers = Customer.objects.get(id = pk)
-    return render(request,"edit.html", {"Customer":dispCustomers})
+    disp_customers = Customer.objects.get(id = pk)
+    return render(request,"edit.html", {"Customer":disp_customers})
 
 
 def update_customer(request,pk):
-    updatecust = Customer.objects.get(id = pk)
-    form = customerRegistrationForm(instance=updatecust)
-    context = {'form':updatecust}
+    update_cust = Customer.objects.get(id = pk)
+    form = customerRegistrationForm(instance=update_cust)
+    context = {'form':update_cust}
     if request.method == "POST":
-        form = customerRegistrationForm(request.POST, instance=updatecust)
+        form = customerRegistrationForm(request.POST, instance=update_cust)
         if form.is_valid():
             form.save()
             messages.success(request,"Record has been updated..!")
-            return render(request,"customerList.html", context)
+            return render(request,"customerlist.html", context)
     return redirect('display_customers')
 
 
 def delete_customer(request,pk):
-    deletecust = Customer.objects.get(id = pk)
+    delete_cust = Customer.objects.get(id = pk)
     if request.method == "POST":
-        deletecust.delete()
+        delete_cust.delete()
         return redirect('display_customers')
-    context = {'item':deletecust}
+    context = {'item':delete_cust}
     return render(request, "delete.html", context)

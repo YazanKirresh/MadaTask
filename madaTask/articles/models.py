@@ -4,30 +4,30 @@ from django.db import models
 # Create your models here.
 
 class Customer(models.Model):
-    customerFirstName = models.CharField(max_length=30)
-    customerLastName = models.CharField(max_length=30)
-    customerServiceLevel = models.IntegerField(default=0)
+    customer_first_name = models.CharField(max_length=30)
+    customer_last_name = models.CharField(max_length=30)
+    customer_service_level = models.IntegerField(default=0)
     class Meta:
         db_table = 'articles_customer'
     def __str__(self):
-        return self.customerLastName
+        return self.customer_last_name
 
 
 class Service(models.Model):
-    serviceName = models.CharField(max_length=50)
-    serviceLevel = models.ManyToManyField('Customer', related_name = 'Services')
+    service_name = models.CharField(max_length=50)
+    service_level = models.ManyToManyField('Customer', related_name = 'Services')
     def __str__(self):
-        return self.serviceName
+        return self.service_name
 
 
 class Employee(models.Model):
-    employeeFirstName = models.CharField(max_length=30)
-    employeeLastName = models.CharField(max_length=30)
-    employeeAllowedAccess = models.BooleanField(default=False)
-    employeePosition = models.CharField(max_length=30)
-    employeeSalary = models.IntegerField(default=0)
+    employee_first_name = models.CharField(max_length=30)
+    employee_last_name = models.CharField(max_length=30)
+    employee_allowed_access = models.BooleanField(default=False)
+    employee_position = models.CharField(max_length=30)
+    employee_salary = models.IntegerField(default=0)
     def __str__(self):
-        return self.employeeLastName
+        return self.employee_last_name
 
 
         
