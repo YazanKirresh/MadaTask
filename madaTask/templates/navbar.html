@@ -2,13 +2,16 @@
     <ul>
         <li><a href = "{% url 'home'%}"> Home page </a></li>
         <li><a href = "{% url 'signup_view'%}"> SignUp </a></li>    
-        <li><a href = "{% url 'login_view'%}"> login </a></li> 
         <li><a href = "{% url 'contact_view'%}"> Contact </a></li> 
         <li><a href = "{% url 'customer_register'%}"> Add new customer </a></li>      
         <li><a href = "{% url 'display_customers'%}"> Update and Edit Customer </a></li> 
-        <li><form class="logout-link" actions="{% url 'logout_view'%}" method="POST">
-            {% csrf_token %}
-            <button type ="submit">Logout</button> </form></li>
+        <li><a href = "{% url 'login_view'%}"> login </a></li> 
+        <li>
+            <form class="logout-link" actions="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                <button type ="submit">Logout</button> 
+            </form>
+        </li>
             
     </ul>
 </nav>

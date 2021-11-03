@@ -10,13 +10,13 @@ from django.contrib import messages
 from .filters import customerFilter
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login,logout
+from django.contrib.auth.decorators import login_required
 
 
 def logout_view(request):
     if request.method == "POST":
         logout(request)
-        return redirect("login_view")
-    return render(request,"customerlist.html")
+        return redirect("contact.html")
 
 
 def login_view(request):
@@ -41,6 +41,7 @@ def signup_view(request):
     return render(request,"signup.html",{'form':form})
 
 
+@login_required(login_url="/login/")
 def display_customers(request):
     results = Customer.objects.all()
     my_filter = customerFilter(request.GET, queryset = results)
@@ -71,6 +72,7 @@ def customer_register(request):
     return render(request, "register.html", context)
 
 
+@login_required(login_url="/login/")
 def add_customer(request):
     if request.method == "POST":
         form = customerRegistrationForm(request.POST)
@@ -86,11 +88,13 @@ def model_form_view(request):
     return render(request, "modelform.html", context)
 
 
+@login_required(login_url="/login/")
 def edit_customer(request,pk):
     disp_customers = Customer.objects.get(id = pk)
     return render(request,"edit.html", {"Customer":disp_customers})
 
 
+@login_required(login_url="/login/")
 def update_customer(request,pk):
     update_cust = Customer.objects.get(id = pk)
     form = customerRegistrationForm(instance=update_cust)
@@ -104,6 +108,7 @@ def update_customer(request,pk):
     return redirect('display_customers')
 
 
+@login_required(login_url="/login/")
 def delete_customer(request,pk):
     delete_cust = Customer.objects.get(id = pk)
     if request.method == "POST":
