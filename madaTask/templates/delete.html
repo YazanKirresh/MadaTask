@@ -10,9 +10,9 @@
 
 <p>Are you sure you want to delete "{{item}}"?</p>
 
-<form actions="{% url 'deletecustomer' item.id %}" method ="POST">
+<form actions="{% url 'delete_customer' item.id %}" method ="POST">
     {% csrf_token %}
-    <a href = "{% url 'customerslist'%}"> Cancel </a>
+    <a href = "{% url 'display_customers'%}"> Cancel </a>
     <input type="submit" name="Confirm">
 </form>>
 

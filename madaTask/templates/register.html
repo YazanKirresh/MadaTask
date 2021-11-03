@@ -6,7 +6,7 @@
 
 <h1>Add customer</h1>
 
-<form action ="{% url 'addcustomer' %}" method="post">
+<form action ="{% url 'add_customer' %}" method="post">
 
     {%csrf_token%}
     {{form}}

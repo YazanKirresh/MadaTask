@@ -8,8 +8,6 @@ class customerRegistrationForm(ModelForm):
         fields = '__all__'
 
 
-
-
 class serviceRegistration(forms.Form):
    class Meta:
         model = Service
