@@ -24,7 +24,7 @@ def display_services(request):
     results = Service.objects.all()
     #my_filter = customerFilter(request.GET, queryset = results)
     #results = my_filter.qs
-    return render(request,"servicelist.html")#, {"Service":results, 'my_filter': my_filter})
+    return render(request,"servicelist.html",{"Service":results})#, {"Service":results, 'my_filter': my_filter})
 
 
 def logout_view(request):

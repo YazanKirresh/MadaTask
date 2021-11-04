@@ -15,18 +15,15 @@
         <tr>
             <th>ID</th>
             <th>Service Name</th>
-            <th>Customers id using it</th>
         </tr>
 
         {% for disp_service in Service  %}
-        <tr>
-            <td>{{disp_service.id}}</td>
-            <td>{{disp_service.service_name}}</td>
-            <td>{{disp_service.service_customers}}</td>
-            <td><a href ="/edit/{{disp_service.id}}">Edit</td>
-           <!--<td><a href ="/deletecustomer/{{disp_service.id}}">Delete</td> -->
-
-        </tr>
+            <tr>
+                <td>{{disp_service.id}}</td>
+                <td>{{disp_service.service_name}}</td>   
+                <!--  <td><a href ="/edit/{{disp_service.id}}">Edit</td>
+                <td><a href ="/deletecustomer/{{disp_service.id}}">Delete</td> -->
+            </tr>
         {% endfor %}
 
     </table>
