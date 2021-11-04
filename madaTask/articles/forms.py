@@ -11,7 +11,7 @@ class customer_registration_form(ModelForm):
         fields = '__all__'
 
 
-class service_registration(forms.Form):
+class service_registration_form(ModelForm):
    class Meta:
         model = Service
         fields = '__all__' 

@@ -16,7 +16,6 @@
             <th>ID</th>
             <th>Service Name</th>
         </tr>
-
         {% for disp_service in Service  %}
             <tr>
                 <td>{{disp_service.id}}</td>
@@ -25,7 +24,6 @@
                 <td><a href ="/deletecustomer/{{disp_service.id}}">Delete</td> -->
             </tr>
         {% endfor %}
-
     </table>
 </form>
 </center>

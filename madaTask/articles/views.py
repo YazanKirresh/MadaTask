@@ -1,11 +1,10 @@
-
 # Create your views here.
 
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, request
 from django.shortcuts import render, redirect
 from .models import Customer, Service
-from .forms import customer_registration_form, signup_form
+from .forms import customer_registration_form, signup_form, service_registration_form
 from django.contrib import messages
 from .filters import customerFilter
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -18,12 +17,10 @@ from .decorators import unauthenticated_user,allowed_users,admin_only
 @allowed_users(allowed_roles=['admin','customer'])
 def profile_page(request):
     return render(request,"profile.html")
-    
+
 
 def display_services(request):
     results = Service.objects.all()
-    #my_filter = customerFilter(request.GET, queryset = results)
-    #results = my_filter.qs
     return render(request,"servicelist.html",{"Service":results})#, {"Service":results, 'my_filter': my_filter})
 
 
@@ -102,6 +99,21 @@ def add_customer(request):
         if form.is_valid():
             form.save()
     return redirect('display_customers')
+
+
+@login_required(login_url="/login/")
+@allowed_users(allowed_roles=['superadmin'])
+def service_register(request):
+    context = {"form": service_registration_form}
+    return render(request, "addservice.html", context)
+  
+    
+def add_new_service(request):
+    if request.method == "POST":
+        form = service_registration_form(request.POST)
+        if form.is_valid():
+            form.save()
+    return redirect('display_servicess')
 
 
 def model_form_view(request):

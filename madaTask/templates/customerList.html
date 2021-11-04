@@ -18,7 +18,6 @@
             <th>Last Name</th>
             <th>Service</th>
         </tr>
-
         {% for disp_customer in Customer  %}
         <tr>
             <td>{{disp_customer.id}}</td>
@@ -30,7 +29,6 @@
             <!--<td>{{disp_customer.service.service_name}}</td> -->
             <td><a href ="/edit/{{disp_customer.id}}">Edit</td>
             <td><a href ="/deletecustomer/{{disp_customer.id}}">Delete</td>
-
         </tr>
         {% endfor %}
 
