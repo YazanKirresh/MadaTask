@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{%block title%}List{%endblock%} 
+
+
+{%block content%} 
+
+<center>
+<form>
+{{myFilter.form}}
+<button class="btn btn-primary" type="submit">Search</button>
+    <h1></h1>
+    
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Service</th>
+        </tr>
+
+        {% for disp_customer in Customer  %}
+        <tr>
+            <td>{{disp_customer.id}}</td>
+            <td>{{disp_customer.customer_first_name}}</td>
+            <td>{{disp_customer.customer_last_name}}</td>
+            <td>{{disp_customer.service.service_name}}</td>
+            <td><a href ="/edit/{{disp_customer.id}}">Edit</td>
+            <td><a href ="/deletecustomer/{{disp_customer.id}}">Delete</td>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+</form>
+</center>
+
+{% endblock %}

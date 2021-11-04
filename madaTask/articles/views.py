@@ -66,7 +66,7 @@ def signup_view(request):
 @login_required(login_url="/login/")
 @allowed_users(allowed_roles=['admin'])
 def display_customers(request):
-    results = Customer.objects.all()
+    results = Customer.objects.all().order_by('id')
     my_filter = customerFilter(request.GET, queryset = results)
     results = my_filter.qs
     return render(request,"customerlist.html", {"Customer":results, 'my_filter': my_filter})
@@ -78,10 +78,15 @@ def home_view(request):
     context = {}
     return render(request, "home.html", context)
 
-
-def contact_view(request):
-    context = {}
-    return render(request, "contact.html", context)
+""" 
+    <!-- <li><a href = "{% url 'list'%}"> list </a></li> -->
+@login_required(login_url="/login/")
+@allowed_users(allowed_roles=['admin'])
+def list_view(request):
+    customer = Customer.objects.all().order_by('-id')
+    #service = Service.objects.all()
+    context = {'customer': customer}
+    return render(request, "list.html", context) """
 
 
 def customer_register(request):
