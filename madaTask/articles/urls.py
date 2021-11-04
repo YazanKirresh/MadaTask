@@ -7,7 +7,6 @@ urlpatterns = [
 
     path('', views.home_view,name= 'home'), # index
     path('contact/', views.contact_view,name= 'contact_view'),
-    path('data/', views.data_view,name= 'data_view'),
     path('register/', views.customer_register,name = 'customer_register'),
     path('addcustomer/', views.add_customer,name = 'add_customer'),
     path('modelform/', views.model_form_view,name = 'model_form_view'),

@@ -14,6 +14,9 @@
     {% if request.GET.next %}
         <input type ="hidden" name="next" value="{{request.GET.next}}"/>
     {% endif %}
+    {% for message in messages %}
+        <p id="messages">{{message}}</p>
+    {% endfor %}
     <input type ="submit" value = "Login"/>
 </form>
 

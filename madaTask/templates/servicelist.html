@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{%block title%}Service List{%endblock%} 
+
+
+{%block content%} 
+
+<center>
+<form>
+{{myFilter.form}}
+<!--<button class="btn btn-primary" type="submit">Search</button>-->
+    <h1></h1>
+    
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Service Name</th>
+            <th>Customers id using it</th>
+        </tr>
+
+        {% for disp_service in Service  %}
+        <tr>
+            <td>{{disp_service.id}}</td>
+            <td>{{disp_service.service_name}}</td>
+            <td>{{disp_service.service_customers}}</td>
+            <td><a href ="/edit/{{disp_service.id}}">Edit</td>
+           <!--<td><a href ="/deletecustomer/{{disp_service.id}}">Delete</td> -->
+
+        </tr>
+        {% endfor %}
+
+    </table>
+</form>
+</center>
+
+{% endblock %}

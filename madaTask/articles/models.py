@@ -6,7 +6,7 @@ from django.db import models
 class Customer(models.Model):
     customer_first_name = models.CharField(max_length=30)
     customer_last_name = models.CharField(max_length=30)
-    customer_service_level = models.IntegerField(default=0)
+    customer_service = models.ManyToManyField('Service')
     class Meta:
         db_table = 'articles_customer'
     def __str__(self):
@@ -15,7 +15,6 @@ class Customer(models.Model):
 
 class Service(models.Model):
     service_name = models.CharField(max_length=50)
-    service_level = models.ManyToManyField('Customer', related_name = 'Services')
     def __str__(self):
         return self.service_name
 
