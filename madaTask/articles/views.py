@@ -42,7 +42,7 @@ def login_view(request):
             if 'next' in request.POST: # redirect to the page that sent the user to the login page
                 return redirect(request.POST.get('next')) 
             else:
-                return redirect("servicelist.html")
+                return redirect("display_servicess")
     else:
         form = AuthenticationForm()
     return render(request,"login.html",{'form': form})
