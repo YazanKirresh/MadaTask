@@ -11,13 +11,20 @@ from .filters import customerFilter
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
+from .decorators import unauthenticated_user,allowed_users,admin_only
 
+
+@allowed_users(allowed_roles=['admin','customer'])
+def profile_page(request):
+    return render(request,"profile.html")
+    
 
 def display_services(request):
     results = Service.objects.all()
-    my_filter = customerFilter(request.GET, queryset = results)
-    results = my_filter.qs
-    return render(request,"service.html", {"Service":results, 'my_filter': my_filter})
+    #my_filter = customerFilter(request.GET, queryset = results)
+    #results = my_filter.qs
+    return render(request,"servicelist.html")#, {"Service":results, 'my_filter': my_filter})
 
 
 def logout_view(request):
@@ -25,39 +32,39 @@ def logout_view(request):
     return redirect("login_view")
 
 
+@unauthenticated_user
 def login_view(request):
-    if request.user.is_authenticated:
-        return redirect("home")
+    if request.method == "POST":
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request,user)
+            if 'next' in request.POST: # redirect to the page that sent the user to the login page
+                return redirect(request.POST.get('next')) 
+            else:
+                return redirect("servicelist.html")
     else:
-        if request.method == "POST":
-            form = AuthenticationForm(data=request.POST)
-            if form.is_valid():
-                user = form.get_user()
-                login(request,user)
-                if 'next' in request.POST: # redirect to the page that sent the user to the login page
-                    return redirect(request.POST.get('next')) 
-                else:
-                    return redirect("home")
-        else:
-            form = AuthenticationForm()
-        return render(request,"login.html",{'form': form})
+        form = AuthenticationForm()
+    return render(request,"login.html",{'form': form})
 
 
+@unauthenticated_user
 def signup_view(request):
-    if request.user.is_authenticated:
-        return redirect("home")
+    if request.method == "POST":
+        form = signup_form(request.POST)
+        if form.is_valid():
+            user = form.save()
+            group = Group.objects.get(name='customer')
+            user.groups.add(group)
+            login(request,user)
+            return redirect("display_servicess")
     else:
-        if request.method == "POST":
-            form = signup_form(request.POST)
-            if form.is_valid():
-                user = form.save()
-                login(request,user)
-        else:
-            form = signup_form
-        return render(request,"signup.html",{'form':form})
+        form = signup_form
+    return render(request,"signup.html",{'form':form})
 
 
 @login_required(login_url="/login/")
+@allowed_users(allowed_roles=['admin'])
 def display_customers(request):
     results = Customer.objects.all()
     my_filter = customerFilter(request.GET, queryset = results)
@@ -65,6 +72,8 @@ def display_customers(request):
     return render(request,"customerlist.html", {"Customer":results, 'my_filter': my_filter})
 
 
+@login_required(login_url="/login/")
+@admin_only
 def home_view(request):
     context = {}
     return render(request, "home.html", context)
@@ -81,6 +90,7 @@ def customer_register(request):
 
 
 @login_required(login_url="/login/")
+@allowed_users(allowed_roles=['admin'])
 def add_customer(request):
     if request.method == "POST":
         form = customer_registration_form(request.POST)
@@ -97,6 +107,7 @@ def model_form_view(request):
 
 
 @login_required(login_url="/login/")
+@allowed_users(allowed_roles=['admin'])
 def edit_customer(request,pk):
     disp_customers = Customer.objects.get(id = pk)
     return render(request,"edit.html", {"Customer":disp_customers})
@@ -117,6 +128,7 @@ def update_customer(request,pk):
 
 
 @login_required(login_url="/login/")
+@allowed_users(allowed_roles=['admin'])
 def delete_customer(request,pk):
     delete_cust = Customer.objects.get(id = pk)
     if request.method == "POST":
