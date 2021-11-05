@@ -12,6 +12,7 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from .decorators import unauthenticated_user,allowed_users,admin_only
+from vue import Vue
 
 
 @allowed_users(allowed_roles=['admin','customer'])

@@ -1,14 +1,21 @@
 <HTML>
+    <HEAD>
+        <title>{%block title%} {%endblock%}  </title>
+    </head>
 
-<HEAD>
-<title>{%block title%} {%endblock%}  </title>
-</head>
+    <body>
+        <div id = "base-app">
+            <header>
+                {% include "navbar.html" %}
+                {%block content%} {%endblock%}
+            </header>
+        </div>
 
-<body>
-    <header>
-    {% include "navbar.html" %}
-{%block content%} {%endblock%}
-</header>
-</body>
-
+        <script src ="js/vue.js"></script>
+        <script>
+        var vm = new Vue({
+            
+        })
+        </script>
+    </body>
 </HTML>
